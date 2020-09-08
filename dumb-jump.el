@@ -1782,10 +1782,11 @@ inaccurate jump).  If nil, jump without confirmation but print a warning."
     (while (and (> cur-pos 0) (not is-found))
       (let* ((char (substring line cur-pos (1+ cur-pos)))
              (is-at (s-index-of char look-for)))
-        (if (null is-at)
-            (setq is-found t)
-          (setq cur-pos (1- cur-pos)))))
-    (1+ cur-pos)))
+        (if is-at
+            (cl-decf cur-pos)
+          (setq is-found t)
+          (cl-incf cur-pos))))
+    cur-pos))
 
 (defun dumb-jump-run-test (test cmd)
   "Use TEST as the standard input for the CMD."
