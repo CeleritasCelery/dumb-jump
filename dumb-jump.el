@@ -773,6 +773,19 @@ or most optimal searcher."
            :regex "JJJ\\s*=\\s*"
            :tests ("$test = 1234"))
 
+    ;; Tcl
+    (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "tcl"
+           :regex "proc\\s+JJJ\\s*\\{"
+           :tests ("proc test{" "proc test {"))
+
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "tcl"
+           :regex "set\\s+JJJ"
+           :tests ("set test 1234"))
+
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "tcl"
+           :regex "(variable|global)\\s+JJJ"
+           :tests ("variable test" "global test"))
+
     ;; shell
     (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "shell"
            :regex "function\\s*JJJ\\s*"
@@ -1634,6 +1647,8 @@ or most optimal searcher."
     (:language "javascript" :type "variable" :right "^;" :left nil)
     (:language "typescript" :type "function" :right "^(" :left nil)
     (:language "perl" :type "function" :right "^(" :left nil)
+    (:language "tcl" :type "function" :right nil :left "\\[$")
+    (:language "tcl" :type "function" :right nil :left "^\s*$")
     (:language "php" :type "function" :right "^(" :left nil)
     (:language "php" :type "class" :right nil :left "new\s+")
     (:language "elisp" :type "function" :right nil :left "($")
@@ -2273,6 +2288,7 @@ current file."
     (:comment "//" :language "go")
     (:comment "//" :language "zig")
     (:comment "#" :language "perl")
+    (:comment "#" :language "tcl")
     (:comment "//" :language "php")
     (:comment "#" :language "python")
     (:comment "%" :language "matlab")
